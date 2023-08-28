@@ -12,6 +12,9 @@ public class RobberBehaviour : MonoBehaviour
   public GameObject diamond;
   public GameObject van;
 
+  [Range(0, 1000)]
+  public int money = 800;
+
   NavMeshAgent agent;
 
   BehaviourTree tree;
@@ -24,16 +27,17 @@ public class RobberBehaviour : MonoBehaviour
 
     tree = new BehaviourTree();
     Sequence steal = new Sequence("Steal Something");
+    Leaf hasGotMoney = new Leaf("Has Got Money", HasMoney);
     Leaf goToBackDoor = new Leaf("Go To BackDoor", GoToBackDoor);
     Leaf goToFrontDoor = new Leaf("Go To FrontDoor", GoToFrontDoor);
     Leaf goToDiamond = new Leaf("Go To Diamond", GoToDiamond);
     Leaf goToVan = new Leaf("Go To Van", GoToVan);
-
     Selector opendoor = new Selector("Open Door");
     
     opendoor.AddChild(goToFrontDoor);
     opendoor.AddChild(goToBackDoor);    
 
+    steal.AddChild(hasGotMoney);
     steal.AddChild(opendoor);
     steal.AddChild(goToDiamond);
     // steal.AddChild(goToBackDoor);
@@ -44,28 +48,68 @@ public class RobberBehaviour : MonoBehaviour
   }
   private void Update() 
   {
-    if(treeStatus == Node.EStatus.RUNNING)
+    if(treeStatus != Node.EStatus.SUCCESS)
       treeStatus = tree.Process();
   }
 
   public Node.EStatus GoToBackDoor()
   {
-    return GoToLocation(backDoor.transform.position);
+    return GoToDoor(backDoor);
   }
 
   public Node.EStatus GoToFrontDoor()
   {
-    return GoToLocation(frontDoor.transform.position);
+    return GoToDoor(frontDoor);
+  }
+
+  public Node.EStatus HasMoney()
+  {
+    if(money >= 500)
+      return Node.EStatus.FAILURE;
+    
+    return Node.EStatus.SUCCESS;
   }
 
   public Node.EStatus GoToDiamond()
   {   
-    return GoToLocation(diamond.transform.position);
+    Node.EStatus s = GoToLocation(diamond.transform.position);
+    if(s == Node.EStatus.SUCCESS)
+    {
+      diamond.transform.parent = this.gameObject.transform;
+    }
+
+    return s;
   }
 
   public Node.EStatus GoToVan()
   {   
-    return GoToLocation(van.transform.position);
+    Node.EStatus s = GoToLocation(van.transform.position);
+    if(s == Node.EStatus.SUCCESS)
+    {
+      money += 300;
+      diamond.SetActive(false);
+    }
+
+    return s;
+  }
+
+  private Node.EStatus GoToDoor(GameObject door)
+  {
+    Node.EStatus s = GoToLocation(door.transform.position);
+    if(s == Node.EStatus.SUCCESS)
+    {
+      if(!door.GetComponent<Lock>().isLocked)
+      {
+        door.SetActive(false);
+        return Node.EStatus.SUCCESS;
+      }
+
+      return Node.EStatus.FAILURE;
+    }
+    else
+    {
+      return s;
+    }
   }
 
   private Node.EStatus GoToLocation(Vector3 destination)
