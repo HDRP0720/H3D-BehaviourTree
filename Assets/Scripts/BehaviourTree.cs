@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class BehaviourTree : Node
 {
+  // Constructors
   public BehaviourTree()
   {
     name = "Tree";
   }
-
   public BehaviourTree(string n)
   {
     name = n;
@@ -18,6 +18,11 @@ public class BehaviourTree : Node
   {
     public int level;
     public Node node;
+  }
+
+  public override EStatus Process()
+  {
+    return children[currentChild].Process();
   }
 
   public void PrintTree()
