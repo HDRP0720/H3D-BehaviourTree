@@ -11,8 +11,13 @@ public class RobberBehaviour : BTAgent
   public GameObject painting;
   public GameObject van;
 
+  public GameObject[] art;
+
   [Range(0, 1000)]
   public int money = 800;
+
+  Leaf goToFrontDoor;
+  Leaf goToBackDoor;
 
   private GameObject pickup;
 
@@ -24,13 +29,17 @@ public class RobberBehaviour : BTAgent
     Leaf hasGotMoney = new Leaf("Has Got Money", HasMoney);
     Inverter invertMoney = new Inverter("Invert Money");
 
-    Selector opendoor = new Selector("Open Door");    
-    Leaf goToFrontDoor = new Leaf("Go To FrontDoor", GoToFrontDoor);
-    Leaf goToBackDoor = new Leaf("Go To BackDoor", GoToBackDoor);
+    PSelector opendoor = new PSelector("Open Door");    
+    goToFrontDoor = new Leaf("Go To FrontDoor", GoToFrontDoor, 1);
+    goToBackDoor = new Leaf("Go To BackDoor", GoToBackDoor, 2);
 
-    Selector selectObject = new Selector("Select Object to Steal");
-    Leaf goToDiamond = new Leaf("Go To Diamond", GoToDiamond);
-    Leaf goToPainting = new Leaf("Go To Painting", GoToPainting);
+    RSelector selectObject = new RSelector("Select Object to Steal");
+    Leaf goToDiamond = new Leaf("Go To Diamond", GoToDiamond, 1);
+    Leaf goToPainting = new Leaf("Go To Painting", GoToPainting, 2);
+
+    Leaf goToArt1 = new Leaf("Go To Art 1", GoToArt1);
+    Leaf goToArt2 = new Leaf("Go To Art 2", GoToArt2);
+    Leaf goToArt3 = new Leaf("Go To Art 3", GoToArt3);
 
     Leaf goToVan = new Leaf("Go To Van", GoToVan);  
     
@@ -41,8 +50,9 @@ public class RobberBehaviour : BTAgent
     opendoor.AddChild(goToFrontDoor);
     opendoor.AddChild(goToBackDoor);
 
-    selectObject.AddChild(goToDiamond);
-    selectObject.AddChild(goToPainting);
+    selectObject.AddChild(goToArt1);
+    selectObject.AddChild(goToArt2);
+    selectObject.AddChild(goToArt3);
 
     steal.AddChild(invertMoney);
     steal.AddChild(opendoor);
@@ -53,15 +63,27 @@ public class RobberBehaviour : BTAgent
     tree.PrintTree();
   }
 
-  public Node.EStatus GoToBackDoor()
-  {
-    return GoToDoor(backDoor);
-  }
-
   public Node.EStatus GoToFrontDoor()
   {
-    return GoToDoor(frontDoor);
+    Node.EStatus s = GoToDoor(frontDoor);
+    if(s == Node.EStatus.FAILURE)
+      goToFrontDoor.sortOrder = 10;
+    else
+      goToFrontDoor.sortOrder = 1;
+    
+    return s;
   }
+
+  public Node.EStatus GoToBackDoor()
+  {
+    Node.EStatus s = GoToDoor(backDoor);
+    if(s == Node.EStatus.FAILURE)
+      goToBackDoor.sortOrder = 10;
+    else
+      goToBackDoor.sortOrder = 1;
+    
+    return s;
+  }  
 
   public Node.EStatus HasMoney()
   {
@@ -94,6 +116,48 @@ public class RobberBehaviour : BTAgent
     {
       painting.transform.parent = this.gameObject.transform;
       pickup = painting;
+    }
+
+    return s;
+  }
+
+  public Node.EStatus GoToArt1()
+  {
+    if(!art[0].activeSelf) return Node.EStatus.FAILURE;
+
+    Node.EStatus s = GoToLocation(art[0].transform.position);
+    if(s == Node.EStatus.SUCCESS)
+    {
+      art[0].transform.parent = this.gameObject.transform;
+      pickup = art[0];
+    }
+
+    return s;
+  }
+
+  public Node.EStatus GoToArt2()
+  {
+    if(!art[1].activeSelf) return Node.EStatus.FAILURE;
+
+    Node.EStatus s = GoToLocation(art[1].transform.position);
+    if(s == Node.EStatus.SUCCESS)
+    {
+      art[1].transform.parent = this.gameObject.transform;
+      pickup = art[1];
+    }
+
+    return s;
+  }
+
+  public Node.EStatus GoToArt3()
+  {
+    if(!art[2].activeSelf) return Node.EStatus.FAILURE;
+
+    Node.EStatus s = GoToLocation(art[2].transform.position);
+    if(s == Node.EStatus.SUCCESS)
+    {
+      art[2].transform.parent = this.gameObject.transform;
+      pickup = art[2];
     }
 
     return s;

@@ -5,9 +5,11 @@ using UnityEngine;
 public class Node
 {
   public enum EStatus { SUCCESS, RUNNING, FAILURE };
+
   public EStatus status;
   public List<Node> children = new List<Node>();
   public int currentChild = 0;
+  public int sortOrder;
   public string name;
 
   // Constructor
@@ -15,6 +17,11 @@ public class Node
   public Node(string n)
   {
     name = n;
+  }
+  public Node(string n, int order)
+  {
+    name = n;
+    sortOrder = order;
   }
 
   public virtual EStatus Process()
