@@ -8,10 +8,13 @@ public class RobberBehaviour : BTAgent
   public GameObject backDoor;
   public GameObject frontDoor;
   public GameObject diamond;
+  public GameObject painting;
   public GameObject van;
 
   [Range(0, 1000)]
   public int money = 800;
+
+  private GameObject pickup;
 
   new void Start() 
   {
@@ -19,22 +22,31 @@ public class RobberBehaviour : BTAgent
 
     Sequence steal = new Sequence("Steal Something");
     Leaf hasGotMoney = new Leaf("Has Got Money", HasMoney);
+    Inverter invertMoney = new Inverter("Invert Money");
+
     Selector opendoor = new Selector("Open Door");    
     Leaf goToFrontDoor = new Leaf("Go To FrontDoor", GoToFrontDoor);
     Leaf goToBackDoor = new Leaf("Go To BackDoor", GoToBackDoor);
+
+    Selector selectObject = new Selector("Select Object to Steal");
     Leaf goToDiamond = new Leaf("Go To Diamond", GoToDiamond);
-    Leaf goToVan = new Leaf("Go To Van", GoToVan);
-    Inverter invertMoney = new Inverter("Invert Money");
-    invertMoney.AddChild(hasGotMoney);
+    Leaf goToPainting = new Leaf("Go To Painting", GoToPainting);
+
+    Leaf goToVan = new Leaf("Go To Van", GoToVan);  
     
     tree.AddChild(steal);
 
+    invertMoney.AddChild(hasGotMoney);    
+
     opendoor.AddChild(goToFrontDoor);
-    opendoor.AddChild(goToBackDoor);    
+    opendoor.AddChild(goToBackDoor);
+
+    selectObject.AddChild(goToDiamond);
+    selectObject.AddChild(goToPainting);
 
     steal.AddChild(invertMoney);
     steal.AddChild(opendoor);
-    steal.AddChild(goToDiamond);
+    steal.AddChild(selectObject);
     // steal.AddChild(goToBackDoor);
     steal.AddChild(goToVan);      
 
@@ -60,11 +72,28 @@ public class RobberBehaviour : BTAgent
   }
 
   public Node.EStatus GoToDiamond()
-  {   
+  {
+    if(!diamond.activeSelf) return Node.EStatus.FAILURE;
+
     Node.EStatus s = GoToLocation(diamond.transform.position);
     if(s == Node.EStatus.SUCCESS)
     {
       diamond.transform.parent = this.gameObject.transform;
+      pickup = diamond;
+    }
+
+    return s;
+  }
+
+  public Node.EStatus GoToPainting()
+  {   
+    if(!painting.activeSelf) return Node.EStatus.FAILURE;
+
+    Node.EStatus s = GoToLocation(painting.transform.position);
+    if(s == Node.EStatus.SUCCESS)
+    {
+      painting.transform.parent = this.gameObject.transform;
+      pickup = painting;
     }
 
     return s;
@@ -76,7 +105,7 @@ public class RobberBehaviour : BTAgent
     if(s == Node.EStatus.SUCCESS)
     {
       money += 300;
-      diamond.SetActive(false);
+      pickup.SetActive(false);
     }
 
     return s;
@@ -89,7 +118,7 @@ public class RobberBehaviour : BTAgent
     {
       if(!door.GetComponent<Lock>().isLocked)
       {
-        door.SetActive(false);
+        door.GetComponent<NavMeshObstacle>().enabled = false;
         return Node.EStatus.SUCCESS;
       }
 
