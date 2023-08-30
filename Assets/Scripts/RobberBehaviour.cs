@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class RobberBehaviour : MonoBehaviour
+public class RobberBehaviour : BTAgent
 {
-  public enum EActionState { IDLE, WORKING };
-
   public GameObject backDoor;
   public GameObject frontDoor;
   public GameObject diamond;
@@ -15,41 +13,32 @@ public class RobberBehaviour : MonoBehaviour
   [Range(0, 1000)]
   public int money = 800;
 
-  NavMeshAgent agent;
-
-  BehaviourTree tree;
-  EActionState state = EActionState.IDLE;  
-  Node.EStatus treeStatus = Node.EStatus.RUNNING;
-
-  private void Start() 
+  new void Start() 
   {
-    agent = this.GetComponent<NavMeshAgent>();
+    base.Start();    
 
-    tree = new BehaviourTree();
     Sequence steal = new Sequence("Steal Something");
     Leaf hasGotMoney = new Leaf("Has Got Money", HasMoney);
-    Leaf goToBackDoor = new Leaf("Go To BackDoor", GoToBackDoor);
+    Selector opendoor = new Selector("Open Door");    
     Leaf goToFrontDoor = new Leaf("Go To FrontDoor", GoToFrontDoor);
+    Leaf goToBackDoor = new Leaf("Go To BackDoor", GoToBackDoor);
     Leaf goToDiamond = new Leaf("Go To Diamond", GoToDiamond);
     Leaf goToVan = new Leaf("Go To Van", GoToVan);
-    Selector opendoor = new Selector("Open Door");
+    Inverter invertMoney = new Inverter("Invert Money");
+    invertMoney.AddChild(hasGotMoney);
     
+    tree.AddChild(steal);
+
     opendoor.AddChild(goToFrontDoor);
     opendoor.AddChild(goToBackDoor);    
 
-    steal.AddChild(hasGotMoney);
+    steal.AddChild(invertMoney);
     steal.AddChild(opendoor);
     steal.AddChild(goToDiamond);
     // steal.AddChild(goToBackDoor);
-    steal.AddChild(goToVan);
-    tree.AddChild(steal);    
+    steal.AddChild(goToVan);      
 
     tree.PrintTree();
-  }
-  private void Update() 
-  {
-    if(treeStatus != Node.EStatus.SUCCESS)
-      treeStatus = tree.Process();
   }
 
   public Node.EStatus GoToBackDoor()
@@ -64,7 +53,7 @@ public class RobberBehaviour : MonoBehaviour
 
   public Node.EStatus HasMoney()
   {
-    if(money >= 500)
+    if(money < 500)
       return Node.EStatus.FAILURE;
     
     return Node.EStatus.SUCCESS;

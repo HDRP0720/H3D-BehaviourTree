@@ -22,6 +22,8 @@ public class BehaviourTree : Node
 
   public override EStatus Process()
   {
+    if (children.Count == 0) return EStatus.SUCCESS;
+
     return children[currentChild].Process();
   }
 
