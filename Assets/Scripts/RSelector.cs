@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RSelector : Node
 {
+  private bool bIsShuffled = false;
+
   // Constructor
   public RSelector(string n)
   {
@@ -12,8 +14,12 @@ public class RSelector : Node
 
   public override EStatus Process()
   {
-    children.Shuffle();
-    
+    if(!bIsShuffled)
+    {
+      children.Shuffle();
+      bIsShuffled = true;
+    } 
+
     EStatus childStatus = children[currentChild].Process();
 
     if(childStatus == EStatus.RUNNING) return EStatus.RUNNING;
@@ -21,6 +27,7 @@ public class RSelector : Node
     if(childStatus == EStatus.SUCCESS)
     {
       currentChild = 0;
+      bIsShuffled = false;
       return EStatus.SUCCESS;
     }
 
@@ -28,6 +35,7 @@ public class RSelector : Node
     if(currentChild >= children.Count)
     {
       currentChild = 0;
+      bIsShuffled = false;
       return EStatus.FAILURE;
     }
 

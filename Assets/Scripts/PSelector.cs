@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PSelector : Node
 {
-  Node[] nodeArray;
+  private Node[] nodeArray;
+  private bool bIsOrdered = false;
 
   // Constructor
   public PSelector(string n)
@@ -21,7 +22,11 @@ public class PSelector : Node
 
   public override EStatus Process()
   {
-    OrderNodes();
+    if(!bIsOrdered)
+    {
+      OrderNodes();
+      bIsOrdered = true;
+    }
 
     EStatus childStatus = children[currentChild].Process();
 
@@ -31,6 +36,7 @@ public class PSelector : Node
     {
       // children[currentChild].sortOrder = 1;
       currentChild = 0;
+      bIsOrdered = false;
       return EStatus.SUCCESS;
     }
     // else
@@ -42,6 +48,7 @@ public class PSelector : Node
     if(currentChild >= children.Count)
     {
       currentChild = 0;
+      bIsOrdered = false;
       return EStatus.FAILURE;
     }
 
