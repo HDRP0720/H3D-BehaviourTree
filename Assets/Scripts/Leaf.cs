@@ -7,12 +7,23 @@ public class Leaf : Node
   public delegate EStatus Tick();
   public Tick ProcessMethod;
 
+  public delegate EStatus TickM(int val);
+  public TickM ProcessMethodM;
+
+  public int index;
+
   // Constructor
   public Leaf() {}
   public Leaf(string n, Tick pm)
   {
     name = n;
     ProcessMethod = pm;
+  }
+  public Leaf(string n, int i,TickM pm)
+  {
+    name = n;
+    index = i;
+    ProcessMethodM = pm;
   }
   public Leaf(string n, Tick pm, int order)
   {
@@ -25,6 +36,8 @@ public class Leaf : Node
   {
     if(ProcessMethod != null)
       return ProcessMethod();
+    else if(ProcessMethodM != null)
+      return ProcessMethodM(index);
 
     return EStatus.FAILURE;
   }

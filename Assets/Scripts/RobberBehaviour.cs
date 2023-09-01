@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class RobberBehaviour : BTAgent
 {
+  public Transform police;
   public GameObject backDoor;
   public GameObject frontDoor;
   public GameObject diamond;
@@ -23,7 +24,11 @@ public class RobberBehaviour : BTAgent
 
   new void Start() 
   {
-    base.Start();    
+    base.Start();
+
+    Sequence runAway = new Sequence("Run Away");
+    Leaf canSeeCop = new Leaf("Can See Cop", CanSeeCop);
+    Leaf fleeFromCop = new Leaf("Flee From Cop", FleeFromCop);
 
     Sequence steal = new Sequence("Steal Something");
     Leaf hasGotMoney = new Leaf("Has Got Money", HasMoney);
@@ -34,33 +39,43 @@ public class RobberBehaviour : BTAgent
     goToBackDoor = new Leaf("Go To BackDoor", GoToBackDoor, 2);
 
     RSelector selectObject = new RSelector("Select Object to Steal");
+    for (int i = 0; i < art.Length; i++)
+    {
+      Leaf gta = new Leaf("Go To " + art[i].name, i, GoToArt);
+      selectObject.AddChild(gta);
+    }
+
     Leaf goToDiamond = new Leaf("Go To Diamond", GoToDiamond, 1);
-    Leaf goToPainting = new Leaf("Go To Painting", GoToPainting, 2);
+    Leaf goToPainting = new Leaf("Go To Painting", GoToPainting, 2); 
 
-    Leaf goToArt1 = new Leaf("Go To Art 1", GoToArt1);
-    Leaf goToArt2 = new Leaf("Go To Art 2", GoToArt2);
-    Leaf goToArt3 = new Leaf("Go To Art 3", GoToArt3);
-
-    Leaf goToVan = new Leaf("Go To Van", GoToVan);  
-    
-    tree.AddChild(steal);
+    Leaf goToVan = new Leaf("Go To Van", GoToVan);
 
     invertMoney.AddChild(hasGotMoney);    
 
     opendoor.AddChild(goToFrontDoor);
-    opendoor.AddChild(goToBackDoor);
-
-    selectObject.AddChild(goToArt1);
-    selectObject.AddChild(goToArt2);
-    selectObject.AddChild(goToArt3);
+    opendoor.AddChild(goToBackDoor);    
 
     steal.AddChild(invertMoney);
     steal.AddChild(opendoor);
     steal.AddChild(selectObject);
-    // steal.AddChild(goToBackDoor);
-    steal.AddChild(goToVan);      
+    steal.AddChild(goToVan);
 
+    runAway.AddChild(canSeeCop);
+    runAway.AddChild(fleeFromCop);
+
+    tree.AddChild(runAway);
+    tree.AddChild(steal);
     tree.PrintTree();
+  }
+
+  public Node.EStatus CanSeeCop()
+  {
+    return CanSee(police.position, "Cop", 10, 60);
+  }
+
+  public Node.EStatus FleeFromCop()
+  {
+    return Flee(police.position, 10);
   }
 
   public Node.EStatus GoToFrontDoor()
@@ -121,43 +136,15 @@ public class RobberBehaviour : BTAgent
     return s;
   }
 
-  public Node.EStatus GoToArt1()
+  public Node.EStatus GoToArt(int i)
   {
-    if(!art[0].activeSelf) return Node.EStatus.FAILURE;
+    if(!art[i].activeSelf) return Node.EStatus.FAILURE;
 
-    Node.EStatus s = GoToLocation(art[0].transform.position);
+    Node.EStatus s = GoToLocation(art[i].transform.position);
     if(s == Node.EStatus.SUCCESS)
     {
-      art[0].transform.parent = this.gameObject.transform;
-      pickup = art[0];
-    }
-
-    return s;
-  }
-
-  public Node.EStatus GoToArt2()
-  {
-    if(!art[1].activeSelf) return Node.EStatus.FAILURE;
-
-    Node.EStatus s = GoToLocation(art[1].transform.position);
-    if(s == Node.EStatus.SUCCESS)
-    {
-      art[1].transform.parent = this.gameObject.transform;
-      pickup = art[1];
-    }
-
-    return s;
-  }
-
-  public Node.EStatus GoToArt3()
-  {
-    if(!art[2].activeSelf) return Node.EStatus.FAILURE;
-
-    Node.EStatus s = GoToLocation(art[2].transform.position);
-    if(s == Node.EStatus.SUCCESS)
-    {
-      art[2].transform.parent = this.gameObject.transform;
-      pickup = art[2];
+      art[i].transform.parent = this.gameObject.transform;
+      pickup = art[i];
     }
 
     return s;

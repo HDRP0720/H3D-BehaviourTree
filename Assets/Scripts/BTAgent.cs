@@ -14,6 +14,7 @@ public class BTAgent : MonoBehaviour
   public Node.EStatus treeStatus = Node.EStatus.RUNNING;
 
   private WaitForSeconds waitForSeconds;
+  private Vector3 savedLocation;
 
   public void Start() 
   {
@@ -31,6 +32,34 @@ public class BTAgent : MonoBehaviour
       treeStatus = tree.Process();
       yield return waitForSeconds;
     }
+  }
+
+  public Node.EStatus CanSee(Vector3 target, string tag, float distance, float maxAngle)
+  {
+    Vector3 directionToTarget = target - this.transform.position;
+    float angle = Vector3.Angle(directionToTarget, this.transform.forward);
+    if(angle <= maxAngle || directionToTarget.magnitude <= distance)
+    {
+      RaycastHit hitInfo;
+      if(Physics.Raycast(this.transform.position, directionToTarget, out hitInfo))
+      {
+        if(hitInfo.collider.gameObject.CompareTag(tag))
+        {
+          return Node.EStatus.SUCCESS;
+        }
+      }
+    }
+
+    return Node.EStatus.FAILURE;
+  }
+
+  public Node.EStatus Flee(Vector3 location, float distance)
+  {
+    if(state == EActionState.IDLE)
+    {
+      savedLocation = this.transform.position + (transform.position - location).normalized * distance;
+    }
+    return GoToLocation(savedLocation);
   }
 
   public Node.EStatus GoToLocation(Vector3 destination)
