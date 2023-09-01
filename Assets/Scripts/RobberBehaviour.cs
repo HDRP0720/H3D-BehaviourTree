@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -26,45 +27,63 @@ public class RobberBehaviour : BTAgent
   {
     base.Start();
 
+    Selector beThief = new Selector("Be a thief");
+
     Sequence runAway = new Sequence("Run Away");
     Leaf canSeeCop = new Leaf("Can See Cop", CanSeeCop);
     Leaf fleeFromCop = new Leaf("Flee From Cop", FleeFromCop);
 
     Sequence steal = new Sequence("Steal Something");
+    
+    Sequence s1 = new Sequence("s1");
     Leaf hasGotMoney = new Leaf("Has Got Money", HasMoney);
     Inverter invertMoney = new Inverter("Invert Money");
-
+    Inverter cantSeeCop = new Inverter("Cant See Cop");
+    
+    Sequence s2 = new Sequence("s2");
     PSelector opendoor = new PSelector("Open Door");    
     goToFrontDoor = new Leaf("Go To FrontDoor", GoToFrontDoor, 1);
     goToBackDoor = new Leaf("Go To BackDoor", GoToBackDoor, 2);
-
+    
+    Sequence s3 = new Sequence("s3");
     RSelector selectObject = new RSelector("Select Object to Steal");
     for (int i = 0; i < art.Length; i++)
     {
       Leaf gta = new Leaf("Go To " + art[i].name, i, GoToArt);
       selectObject.AddChild(gta);
     }
-
     Leaf goToDiamond = new Leaf("Go To Diamond", GoToDiamond, 1);
     Leaf goToPainting = new Leaf("Go To Painting", GoToPainting, 2); 
 
+    Sequence s4 = new Sequence("s4");
     Leaf goToVan = new Leaf("Go To Van", GoToVan);
 
-    invertMoney.AddChild(hasGotMoney);    
+    invertMoney.AddChild(hasGotMoney);
+    cantSeeCop.AddChild(canSeeCop);
 
     opendoor.AddChild(goToFrontDoor);
-    opendoor.AddChild(goToBackDoor);    
+    opendoor.AddChild(goToBackDoor);
+    
+    s1.AddChild(invertMoney);
+    s2.AddChild(cantSeeCop);
+    s2.AddChild(opendoor);
+    s3.AddChild(cantSeeCop);
+    s3.AddChild(selectObject); 
+    s4.AddChild(cantSeeCop);
+    s4.AddChild(goToVan);
 
-    steal.AddChild(invertMoney);
-    steal.AddChild(opendoor);
-    steal.AddChild(selectObject);
-    steal.AddChild(goToVan);
+    steal.AddChild(s1);
+    steal.AddChild(s2);   
+    steal.AddChild(s3);
+    steal.AddChild(s4);
 
     runAway.AddChild(canSeeCop);
     runAway.AddChild(fleeFromCop);
 
-    tree.AddChild(runAway);
-    tree.AddChild(steal);
+    beThief.AddChild(runAway);
+    beThief.AddChild(steal);
+
+    tree.AddChild(beThief);
     tree.PrintTree();
   }
 
