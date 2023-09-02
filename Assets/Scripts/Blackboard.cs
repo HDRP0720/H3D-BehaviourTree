@@ -44,17 +44,10 @@ public class Blackboard : MonoBehaviour
     StartCoroutine(UpdateClock());
   }
   private IEnumerator UpdateClock()
-  {    
-    float time = 0;
+  {     
     while(true)
-    {
-      Debug.Log(time);
-      time += Time.deltaTime;
-      if(time >= 5)
-      {
-        timeOfDay++;
-        time = 0;
-      }
+    {   
+      timeOfDay++; 
    
       if(timeOfDay > 23) timeOfDay = 0;
       clock.text = timeOfDay + ":00";
