@@ -102,5 +102,13 @@ public class BTAgent : MonoBehaviour
     {
       return s;
     }
-  }  
+  }
+
+  public Node.EStatus IsOpen()
+  {
+    if(Blackboard.Instance.timeOfDay < 9 || Blackboard.Instance.timeOfDay > 17)    
+      return Node.EStatus.FAILURE;    
+    else
+      return Node.EStatus.SUCCESS;  
+  }
 }

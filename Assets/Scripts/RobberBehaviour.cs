@@ -58,8 +58,13 @@ public class RobberBehaviour : BTAgent
     Inverter cantSeeCop = new Inverter("Cant See Cop");
     cantSeeCop.AddChild(canSeeCop);   
 
+    Leaf isOpen = new Leaf("Is Open", IsOpen);
+    Inverter isClosed = new Inverter("Is Closed?");
+    isClosed.AddChild(isOpen);
+
     BehaviourTree stealConditions = new BehaviourTree();
     Sequence conditions = new Sequence("Stealing Conditions");
+    conditions.AddChild(isClosed);
     conditions.AddChild(cantSeeCop);
     conditions.AddChild(invertMoney);
     stealConditions.AddChild(conditions);
@@ -181,6 +186,7 @@ public class RobberBehaviour : BTAgent
       {
         money += 300;
         pickup.SetActive(false);
+        pickup = null;
       }      
     }
 
