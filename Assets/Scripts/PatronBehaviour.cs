@@ -26,8 +26,10 @@ public class PatronBehaviour : BTAgent
     Leaf goToFrontDoor = new Leaf("Go To FrontDoor", GoToFrontDoor);
     Leaf goToHome = new Leaf("Go To Home", GoToHome);
     Leaf isBored = new Leaf("Is Bored?", IsBored);
+    Leaf isOpen = new Leaf("Is Open?", IsOpen);
 
     Sequence viewArt = new Sequence("View Art");
+    viewArt.AddChild(isOpen);
     viewArt.AddChild(isBored);
     viewArt.AddChild(goToFrontDoor);
 
@@ -39,10 +41,16 @@ public class PatronBehaviour : BTAgent
 
     viewArt.AddChild(goToHome);
 
-    Selector bePatron = new Selector("Be An Art Patron");
+    BehaviourTree galleryOpenCondition = new BehaviourTree();
+    galleryOpenCondition.AddChild(isOpen);
+    DepSequence bePatron = new DepSequence("Be An Art Patron", galleryOpenCondition, agent);
     bePatron.AddChild(viewArt);
+
+    Selector viewArtWithFallback = new Selector("viewArtWithFallback");
+    viewArtWithFallback.AddChild(bePatron);
+    viewArtWithFallback.AddChild(goToHome);
     
-    tree.AddChild(bePatron);
+    tree.AddChild(viewArtWithFallback);
 
     StartCoroutine(IncreaseBoredom());
   }
@@ -85,13 +93,17 @@ public class PatronBehaviour : BTAgent
 
   public Node.EStatus IsBored()
   {
-    if(boredom < 100)
-    {
-      return Node.EStatus.FAILURE;
-    }
+    if(boredom < 100)    
+      return Node.EStatus.FAILURE;    
     else
-    {
-      return Node.EStatus.SUCCESS;
-    }
+      return Node.EStatus.SUCCESS;    
+  }
+
+  public Node.EStatus IsOpen()
+  {
+    if(Blackboard.Instance.timeOfDay < 9 || Blackboard.Instance.timeOfDay > 17)    
+      return Node.EStatus.FAILURE;    
+    else
+      return Node.EStatus.SUCCESS;  
   }
 }
