@@ -35,9 +35,11 @@ public class Blackboard : MonoBehaviour
     }
   }
 
-  public GameObject patron;
+  public Stack<GameObject> patrons = new Stack<GameObject>();
   public float timeOfDay;
   public TMP_Text clock;
+  public int openTime = 6;
+  public int closeTime = 20;
 
   private void Start() 
   {
@@ -50,21 +52,24 @@ public class Blackboard : MonoBehaviour
       timeOfDay++; 
    
       if(timeOfDay > 23) timeOfDay = 0;
+
       clock.text = timeOfDay + ":00";
-      yield return new WaitForSeconds(1);
+
+      if(timeOfDay == closeTime)
+        patrons.Clear();
+
+      yield return new WaitForSeconds(2);
     }
   }
 
-  public GameObject RegisterPatron(GameObject p)
+  public bool RegisterPatron(GameObject p)
   {
-    if(patron == null)
-      patron = p;
-
-    return patron;
+    patrons.Push(p);
+    return true;
   }
 
   public void DeregisterPatron()
   {
-    patron = null;
+    // patron = null;
   }
 }

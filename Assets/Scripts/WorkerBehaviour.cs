@@ -6,37 +6,71 @@ public class WorkerBehaviour : BTAgent
 {
   public GameObject office;
 
+  private GameObject patron;
+
   public override void Start() 
   {
     base.Start();
 
-    Leaf goToPatron = new Leaf("Go To Patron", GoToPatron);
+    Leaf patronStillWaiting = new Leaf("Patron Still Waiting", PatronWaiting);
+    Leaf allocatePatron = new Leaf("Allocate Patron", AllocatePatron);
+    Leaf activateTicket = new Leaf("Activate Patron Ticket", ActivateTicket);
     Leaf goToOffice = new Leaf("Go To Office", GoToOffice);
 
+    Sequence approvePatron = new Sequence("Approve a Patron");
+    approvePatron.AddChild(allocatePatron);
+
+    BehaviourTree waiting = new BehaviourTree();
+    waiting.AddChild(patronStillWaiting);
+    DepSequence moveToPatron = new DepSequence("Moving To Patron", waiting, agent);
+    moveToPatron.AddChild(activateTicket);
+
+    approvePatron.AddChild(moveToPatron);
+
     Selector beWorker = new Selector("Be a Worker");
-    beWorker.AddChild(goToPatron);
+    beWorker.AddChild(approvePatron);
     beWorker.AddChild(goToOffice);
 
     tree.AddChild(beWorker);
   }
 
-  public Node.EStatus GoToPatron()
+  public Node.EStatus PatronWaiting()
   {
-    if(Blackboard.Instance.patron == null) return Node.EStatus.FAILURE;
+    if(patron == null) return Node.EStatus.FAILURE;
 
-    Node.EStatus s = GoToLocation(Blackboard.Instance.patron.transform.position);
+    if(patron.GetComponent<PatronBehaviour>().isWaiting) return Node.EStatus.SUCCESS;
+
+    return Node.EStatus.FAILURE;
+  }
+
+  public Node.EStatus AllocatePatron()
+  {
+    if(Blackboard.Instance.patrons.Count == 0) return Node.EStatus.FAILURE;
+
+    patron = Blackboard.Instance.patrons.Pop();
+    if(patron == null) return Node.EStatus.FAILURE;
+
+    return Node.EStatus.SUCCESS;
+  }
+
+  public Node.EStatus ActivateTicket()
+  {
+    if(patron == null) return Node.EStatus.FAILURE;
+
+    Node.EStatus s = GoToLocation(patron.transform.position);
     if(s == Node.EStatus.SUCCESS)
     {
-      Blackboard.Instance.patron.GetComponent<PatronBehaviour>().ticket = true;
-      Blackboard.Instance.DeregisterPatron();
+      patron.GetComponent<PatronBehaviour>().ticket = true;
+      patron = null;
     }
-
     return s;
   }
 
   public Node.EStatus GoToOffice()
   {
     Node.EStatus s = GoToLocation(office.transform.position);
+    patron = null;
+
     return s;
   }
 }

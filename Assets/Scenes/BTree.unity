@@ -388,7 +388,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -462,7 +462,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -633,7 +633,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -776,7 +776,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &91577699
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -936,7 +936,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &100273841
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1096,7 +1096,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &170631173
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1292,7 +1292,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -1427,7 +1427,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &295156580
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1720,7 +1720,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -1952,7 +1952,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &388756655
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2436,7 +2436,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -2725,7 +2725,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -2993,7 +2993,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -3115,7 +3115,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &636227632
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3311,7 +3311,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &678141840
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3470,7 +3470,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!4 &714570419 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7880970886039044016, guid: d36c43225f9391e4c8810c98eb7ef85e,
@@ -3603,9 +3603,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5048f276fc436d448c499294a913a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patron: {fileID: 0}
   timeOfDay: 0
   clock: {fileID: 1262094763}
+  openTime: 6
+  closeTime: 20
 --- !u!4 &726414951
 Transform:
   m_ObjectHideFlags: 0
@@ -3849,7 +3850,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &760915764
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4009,7 +4010,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &764194840
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4108,7 +4109,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -4146,7 +4147,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &784785578
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4245,7 +4246,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -4283,7 +4284,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &827112370
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4382,10 +4383,54 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
+--- !u!1 &865871985 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1822160269786678409, guid: 8a40fb370ea9e3c4cb0b6250bbc0d124,
+    type: 3}
+  m_PrefabInstance: {fileID: 1999041427}
+  m_PrefabAsset: {fileID: 0}
+--- !u!195 &865871986
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865871985}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 10
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &865871987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865871985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7737a754283f18a409153641ca88212f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  state: 0
+  treeStatus: 1
+  office: {fileID: 495397162}
 --- !u!1001 &870564067
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4456,7 +4501,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -4760,7 +4805,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -5227,7 +5272,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &958677734
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5387,7 +5432,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &965503333
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5547,7 +5592,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &1018924034
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -6287,7 +6332,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &1106971312
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -6774,7 +6819,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -6812,7 +6857,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &1224526700
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -6875,7 +6920,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &1231130636
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -7364,7 +7409,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &1283116949
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -7524,7 +7569,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &1303860783
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -7720,7 +7765,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -7891,7 +7936,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -8032,7 +8077,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &1478254127
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -8131,7 +8176,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -8169,7 +8214,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &1487023243
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -8268,7 +8313,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -8797,7 +8842,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &1665783082
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -8971,7 +9016,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &1707232193
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -9167,7 +9212,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -9375,7 +9420,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -9449,7 +9494,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -9970,7 +10015,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -10140,6 +10185,75 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a40fb370ea9e3c4cb0b6250bbc0d124, type: 3}
+--- !u!1001 &1999041427
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1822160269786678409, guid: 8a40fb370ea9e3c4cb0b6250bbc0d124,
+        type: 3}
+      propertyPath: m_Name
+      value: Worker (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834800750672922909, guid: 8a40fb370ea9e3c4cb0b6250bbc0d124,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834800750672922909, guid: 8a40fb370ea9e3c4cb0b6250bbc0d124,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 24.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834800750672922909, guid: 8a40fb370ea9e3c4cb0b6250bbc0d124,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.425001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834800750672922909, guid: 8a40fb370ea9e3c4cb0b6250bbc0d124,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 20.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834800750672922909, guid: 8a40fb370ea9e3c4cb0b6250bbc0d124,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5050292
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834800750672922909, guid: 8a40fb370ea9e3c4cb0b6250bbc0d124,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834800750672922909, guid: 8a40fb370ea9e3c4cb0b6250bbc0d124,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.86310226
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834800750672922909, guid: 8a40fb370ea9e3c4cb0b6250bbc0d124,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834800750672922909, guid: 8a40fb370ea9e3c4cb0b6250bbc0d124,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834800750672922909, guid: 8a40fb370ea9e3c4cb0b6250bbc0d124,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 119.333
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834800750672922909, guid: 8a40fb370ea9e3c4cb0b6250bbc0d124,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8a40fb370ea9e3c4cb0b6250bbc0d124, type: 3}
 --- !u!1 &2022759536 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
@@ -10174,7 +10288,7 @@ MonoBehaviour:
   frontDoor: {fileID: 1791870521}
   home: {fileID: 1148062692}
   ticket: 0
-  boredom: 0
+  boredom: 1000
 --- !u!195 &2022759538
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -10512,7 +10626,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}
@@ -10586,7 +10700,7 @@ PrefabInstance:
     - target: {fileID: 7881807149238628900, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d36c43225f9391e4c8810c98eb7ef85e, type: 3}

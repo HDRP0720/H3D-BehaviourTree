@@ -9,6 +9,7 @@ public class PatronBehaviour : BTAgent
   public GameObject frontDoor;
   public GameObject home;
   public bool ticket = false;
+  public bool isWaiting = false;
 
   [Range(0, 1000)]
   public int boredom = 0;  
@@ -98,6 +99,7 @@ public class PatronBehaviour : BTAgent
   public Node.EStatus GoToHome()
   {   
     Node.EStatus s = GoToLocation(home.transform.position);
+    isWaiting = false;
     
     return s;
   }
@@ -120,8 +122,11 @@ public class PatronBehaviour : BTAgent
 
   public Node.EStatus IsWaiting()
   {
-    if(Blackboard.Instance.RegisterPatron(this.gameObject) == this.gameObject)
+    if(Blackboard.Instance.RegisterPatron(this.gameObject))
+    {
+      isWaiting = true;
       return Node.EStatus.SUCCESS;
+    }     
     else
       return Node.EStatus.FAILURE;
   }
