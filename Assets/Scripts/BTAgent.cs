@@ -25,7 +25,7 @@ public class BTAgent : MonoBehaviour
     StartCoroutine(Behave());
   }
 
-  IEnumerator Behave()
+  private IEnumerator Behave()
   {
     while(true)
     {

@@ -27,6 +27,8 @@ public class DepSequence : Node
       }
       return EStatus.FAILURE;
     }
+
+    if(dependancy.Process() == EStatus.RUNNING) return EStatus.RUNNING;
     
     EStatus childStatus = children[currentChild].Process();
 
