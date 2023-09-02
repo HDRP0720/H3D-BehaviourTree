@@ -23,73 +23,76 @@ public class RobberBehaviour : BTAgent
 
   private GameObject pickup;
 
-  new void Start() 
+  public override void Start() 
   {
-    base.Start();
-
-    Selector beThief = new Selector("Be a thief");
+    base.Start(); 
 
     Sequence runAway = new Sequence("Run Away");
-    Leaf canSeeCop = new Leaf("Can See Cop", CanSeeCop);
+    Leaf canSeeCop = new Leaf("Can See Cop", CanSeeCop);    
     Leaf fleeFromCop = new Leaf("Flee From Cop", FleeFromCop);
+    runAway.AddChild(canSeeCop);
+    runAway.AddChild(fleeFromCop);    
 
-    Sequence steal = new Sequence("Steal Something");
-    
-    Sequence s1 = new Sequence("s1");
-    Leaf hasGotMoney = new Leaf("Has Got Money", HasMoney);
-    Inverter invertMoney = new Inverter("Invert Money");
-    Inverter cantSeeCop = new Inverter("Cant See Cop");
-    
-    Sequence s2 = new Sequence("s2");
+    Leaf hasGotMoney = new Leaf("Has Got Money", HasMoney); 
+
     PSelector opendoor = new PSelector("Open Door");    
     goToFrontDoor = new Leaf("Go To FrontDoor", GoToFrontDoor, 1);
     goToBackDoor = new Leaf("Go To BackDoor", GoToBackDoor, 2);
-    
-    Sequence s3 = new Sequence("s3");
-    RSelector selectObject = new RSelector("Select Object to Steal");
-    for (int i = 0; i < art.Length; i++)
-    {
-      Leaf gta = new Leaf("Go To " + art[i].name, i, GoToArt);
-      selectObject.AddChild(gta);
-    }
-    Leaf goToDiamond = new Leaf("Go To Diamond", GoToDiamond, 1);
-    Leaf goToPainting = new Leaf("Go To Painting", GoToPainting, 2); 
-
-    Sequence s4 = new Sequence("s4");
-    Leaf goToVan = new Leaf("Go To Van", GoToVan);
-
-    invertMoney.AddChild(hasGotMoney);
-    cantSeeCop.AddChild(canSeeCop);
-
     opendoor.AddChild(goToFrontDoor);
     opendoor.AddChild(goToBackDoor);
     
-    s1.AddChild(invertMoney);
-    s2.AddChild(cantSeeCop);
-    s2.AddChild(opendoor);
-    s3.AddChild(cantSeeCop);
-    s3.AddChild(selectObject); 
-    s4.AddChild(cantSeeCop);
-    s4.AddChild(goToVan);
+    RSelector selectObjects = new RSelector("Select Object to Steal");
+    for (int i = 0; i < art.Length; i++)
+    {
+      Leaf gta = new Leaf("Go To " + art[i].name, i, GoToArt);
+      selectObjects.AddChild(gta);
+    }
 
-    steal.AddChild(s1);
-    steal.AddChild(s2);   
-    steal.AddChild(s3);
-    steal.AddChild(s4);
+    Leaf goToDiamond = new Leaf("Go To Diamond", GoToDiamond, 1);
+    Leaf goToPainting = new Leaf("Go To Painting", GoToPainting, 2);
 
-    runAway.AddChild(canSeeCop);
-    runAway.AddChild(fleeFromCop);
+    Leaf goToVan = new Leaf("Go To Van", GoToVan);
 
+    Inverter invertMoney = new Inverter("Invert Money");
+    invertMoney.AddChild(hasGotMoney);
+    Inverter cantSeeCop = new Inverter("Cant See Cop");
+    cantSeeCop.AddChild(canSeeCop);   
+
+    BehaviourTree stealConditions = new BehaviourTree();
+    Sequence conditions = new Sequence("Stealing Conditions");
+    conditions.AddChild(cantSeeCop);
+    conditions.AddChild(invertMoney);
+    stealConditions.AddChild(conditions);
+    DepSequence steal = new DepSequence("Steal Something", stealConditions, agent);
+    steal.AddChild(opendoor);   
+    steal.AddChild(selectObjects);
+    steal.AddChild(goToVan);
+
+    Selector stealWithFallback = new Selector("Steal With Fallback");
+    stealWithFallback.AddChild(steal);
+    stealWithFallback.AddChild(goToVan);    
+
+    Selector beThief = new Selector("Be a thief");
+    beThief.AddChild(stealWithFallback);
     beThief.AddChild(runAway);
-    beThief.AddChild(steal);
 
     tree.AddChild(beThief);
     tree.PrintTree();
+
+    StartCoroutine(DecreaseMoney());
+  }
+  private IEnumerator DecreaseMoney()
+  {
+    while(true)
+    {
+      money = Mathf.Clamp(money - 50, 0, 1000);
+      yield return new WaitForSeconds(Random.Range(1, 5));
+    }
   }
 
   public Node.EStatus CanSeeCop()
   {
-    return CanSee(police.position, "Cop", 10, 60);
+    return CanSee(police.position, "Cop", 10, 90);
   }
 
   public Node.EStatus FleeFromCop()
@@ -174,51 +177,13 @@ public class RobberBehaviour : BTAgent
     Node.EStatus s = GoToLocation(van.transform.position);
     if(s == Node.EStatus.SUCCESS)
     {
-      money += 300;
-      pickup.SetActive(false);
+      if(pickup != null)
+      {
+        money += 300;
+        pickup.SetActive(false);
+      }      
     }
 
     return s;
-  }
-
-  private Node.EStatus GoToDoor(GameObject door)
-  {
-    Node.EStatus s = GoToLocation(door.transform.position);
-    if(s == Node.EStatus.SUCCESS)
-    {
-      if(!door.GetComponent<Lock>().isLocked)
-      {
-        door.GetComponent<NavMeshObstacle>().enabled = false;
-        return Node.EStatus.SUCCESS;
-      }
-
-      return Node.EStatus.FAILURE;
-    }
-    else
-    {
-      return s;
-    }
-  }
-
-  private Node.EStatus GoToLocation(Vector3 destination)
-  {
-    float distanceToTarget = Vector3.Distance(destination, this.transform.position);
-    if(state == EActionState.IDLE)
-    {
-      agent.SetDestination(destination);
-      state = EActionState.WORKING;
-    }
-    else if(Vector3.Distance(agent.pathEndPosition, destination) >= 2)
-    {
-      state = EActionState.IDLE;
-      return Node.EStatus.FAILURE;
-    }
-    else if (distanceToTarget < 2)
-    {
-      state = EActionState.IDLE;
-      return Node.EStatus.SUCCESS;
-    }
-
-    return Node.EStatus.RUNNING;
-  }
+  }  
 }

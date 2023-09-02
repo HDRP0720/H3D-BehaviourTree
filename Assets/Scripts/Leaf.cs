@@ -34,11 +34,15 @@ public class Leaf : Node
 
   public override EStatus Process()
   {
+    EStatus s;
     if(ProcessMethod != null)
-      return ProcessMethod();
+      s = ProcessMethod();
     else if(ProcessMethodM != null)
-      return ProcessMethodM(index);
+      s = ProcessMethodM(index);
+    else
+      s = EStatus.FAILURE;
 
-    return EStatus.FAILURE;
+    Debug.Log($"{this.name} {s}");
+    return s;
   }
 }

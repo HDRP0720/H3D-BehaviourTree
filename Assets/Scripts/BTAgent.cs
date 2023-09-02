@@ -16,7 +16,7 @@ public class BTAgent : MonoBehaviour
   private WaitForSeconds waitForSeconds;
   private Vector3 savedLocation;
 
-  public void Start() 
+  public virtual void Start() 
   {
     agent = this.GetComponent<NavMeshAgent>();
     tree = new BehaviourTree();
@@ -65,10 +65,11 @@ public class BTAgent : MonoBehaviour
   public Node.EStatus GoToLocation(Vector3 destination)
   {
     float distanceToTarget = Vector3.Distance(destination, this.transform.position);
+
     if(state == EActionState.IDLE)
     {
       agent.SetDestination(destination);
-      state = EActionState.WORKING;
+      state = EActionState.WORKING;   
     }
     else if(Vector3.Distance(agent.pathEndPosition, destination) >= 2)
     {
@@ -83,4 +84,23 @@ public class BTAgent : MonoBehaviour
 
     return Node.EStatus.RUNNING;
   }
+
+  public Node.EStatus GoToDoor(GameObject door)
+  {
+    Node.EStatus s = GoToLocation(door.transform.position);
+    if(s == Node.EStatus.SUCCESS)
+    {
+      if(!door.GetComponent<Lock>().isLocked)
+      {
+        door.GetComponent<NavMeshObstacle>().enabled = false;
+        return Node.EStatus.SUCCESS;
+      }
+
+      return Node.EStatus.FAILURE;
+    }
+    else
+    {
+      return s;
+    }
+  }  
 }
