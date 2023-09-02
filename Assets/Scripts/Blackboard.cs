@@ -35,6 +35,7 @@ public class Blackboard : MonoBehaviour
     }
   }
 
+  public GameObject patron;
   public float timeOfDay;
   public TMP_Text clock;
 
@@ -43,13 +44,34 @@ public class Blackboard : MonoBehaviour
     StartCoroutine(UpdateClock());
   }
   private IEnumerator UpdateClock()
-  {
+  {    
+    float time = 0;
     while(true)
     {
-      timeOfDay++;
+      Debug.Log(time);
+      time += Time.deltaTime;
+      if(time >= 5)
+      {
+        timeOfDay++;
+        time = 0;
+      }
+   
       if(timeOfDay > 23) timeOfDay = 0;
       clock.text = timeOfDay + ":00";
       yield return new WaitForSeconds(1);
     }
+  }
+
+  public GameObject RegisterPatron(GameObject p)
+  {
+    if(patron == null)
+      patron = p;
+
+    return patron;
+  }
+
+  public void DeregisterPatron()
+  {
+    patron = null;
   }
 }

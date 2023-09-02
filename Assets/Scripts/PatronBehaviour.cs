@@ -8,9 +8,10 @@ public class PatronBehaviour : BTAgent
   public GameObject[] art;
   public GameObject frontDoor;
   public GameObject home;
+  public bool ticket = false;
 
   [Range(0, 1000)]
-  public int boredom = 0;
+  public int boredom = 0;  
 
   public override void Start()
   {
@@ -32,6 +33,16 @@ public class PatronBehaviour : BTAgent
     viewArt.AddChild(isOpen);
     viewArt.AddChild(isBored);
     viewArt.AddChild(goToFrontDoor);
+
+    Leaf noTicket = new Leaf("Wait For Ticket", NoTicket);
+    BehaviourTree waitForTicket = new BehaviourTree();
+    waitForTicket.AddChild(noTicket);
+
+    Leaf isWaiting = new Leaf("Waiting For Worker", IsWaiting);   
+    Loop getTicket = new Loop("Ticket", waitForTicket);
+    getTicket.AddChild(isWaiting);
+
+    viewArt.AddChild(getTicket);
 
     BehaviourTree whileBored = new BehaviourTree();
     whileBored.AddChild(isBored);
@@ -97,5 +108,21 @@ public class PatronBehaviour : BTAgent
       return Node.EStatus.FAILURE;    
     else
       return Node.EStatus.SUCCESS;    
-  }  
+  }
+
+  public Node.EStatus NoTicket()
+  {
+    if(ticket || IsOpen() == Node.EStatus.FAILURE)
+      return Node.EStatus.FAILURE;
+    else
+      return Node.EStatus.SUCCESS;
+  }
+
+  public Node.EStatus IsWaiting()
+  {
+    if(Blackboard.Instance.RegisterPatron(this.gameObject) == this.gameObject)
+      return Node.EStatus.SUCCESS;
+    else
+      return Node.EStatus.FAILURE;
+  }
 }
