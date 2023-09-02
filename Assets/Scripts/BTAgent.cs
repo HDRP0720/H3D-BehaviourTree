@@ -107,7 +107,7 @@ public class BTAgent : MonoBehaviour
   public Node.EStatus IsOpen()
   {
     if(Blackboard.Instance.timeOfDay < Blackboard.Instance.openTime || Blackboard.Instance.timeOfDay > Blackboard.Instance.closeTime)    
-      return Node.EStatus.FAILURE;    
+      return Node.EStatus.FAILURE;
     else
       return Node.EStatus.SUCCESS;  
   }
