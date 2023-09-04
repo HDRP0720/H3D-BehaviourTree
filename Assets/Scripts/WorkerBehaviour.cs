@@ -20,9 +20,9 @@ public class WorkerBehaviour : BTAgent
     Sequence approvePatron = new Sequence("Approve a Patron");
     approvePatron.AddChild(allocatePatron);
 
-    BehaviourTree waiting = new BehaviourTree();
-    waiting.AddChild(patronStillWaiting);
-    DepSequence moveToPatron = new DepSequence("Moving To Patron", waiting, agent);
+    BehaviourTree waitingCondition = new BehaviourTree();
+    waitingCondition.AddChild(patronStillWaiting);
+    DepSequence moveToPatron = new DepSequence("Moving To Patron", waitingCondition, agent);
     moveToPatron.AddChild(activateTicket);
 
     approvePatron.AddChild(moveToPatron);
@@ -38,7 +38,7 @@ public class WorkerBehaviour : BTAgent
   {
     if(patron == null) return Node.EStatus.FAILURE;
 
-    if(patron.GetComponent<PatronBehaviour>().isWaiting) return Node.EStatus.SUCCESS;
+    if(patron.GetComponent<AudienceBehaviour>().bIsWaiting) return Node.EStatus.SUCCESS;
 
     return Node.EStatus.FAILURE;
   }
@@ -60,7 +60,7 @@ public class WorkerBehaviour : BTAgent
     Node.EStatus s = GoToLocation(patron.transform.position);
     if(s == Node.EStatus.SUCCESS)
     {
-      patron.GetComponent<PatronBehaviour>().ticket = true;
+      patron.GetComponent<AudienceBehaviour>().bHasTicket = true;
       patron = null;
     }
     return s;

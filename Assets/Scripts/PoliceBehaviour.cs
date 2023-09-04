@@ -20,27 +20,26 @@ public class PoliceBehaviour : BTAgent
     }
 
     Sequence chaseSequence = new Sequence("Chase Sequence");
-    Leaf canSeeRobber = new Leaf("Can See Robber?", CanSeeRobber);
+    Leaf findRobber = new Leaf("Find Robber", FindRobber);
     Leaf chaseRobber = new Leaf("Chase Robber", ChaseRobber);
-    chaseSequence.AddChild(canSeeRobber);
+    chaseSequence.AddChild(findRobber);
     chaseSequence.AddChild(chaseRobber);
 
     Inverter cantSeeRobber = new Inverter("Cannot See Robber");
-    cantSeeRobber.AddChild(canSeeRobber);
-
-    BehaviourTree patrolConditions = new BehaviourTree();
+    cantSeeRobber.AddChild(findRobber);
+    BehaviourTree patrolCondition = new BehaviourTree();
     Sequence condition = new Sequence("Patrol Condition");
     condition.AddChild(cantSeeRobber);
-    patrolConditions.AddChild(condition);
+    patrolCondition.AddChild(condition);
 
-    DepSequence patrol = new DepSequence("Patrol", patrolConditions, agent);
+    DepSequence patrol = new DepSequence("Patrol", patrolCondition, agent);
     patrol.AddChild(selectPatrolPoint);
 
-    Selector beCop = new Selector("be a cop");
-    beCop.AddChild(patrol);
-    beCop.AddChild(chaseSequence);
+    Selector bePolice = new Selector("be a Police");
+    bePolice.AddChild(patrol);
+    bePolice.AddChild(chaseSequence);
 
-    tree.AddChild(beCop);
+    tree.AddChild(bePolice);
   }
 
   public Node.EStatus GoToPoint(int i)
@@ -50,7 +49,7 @@ public class PoliceBehaviour : BTAgent
     return s;
   }
 
-  public Node.EStatus CanSeeRobber()
+  public Node.EStatus FindRobber()
   {
     return CanSee(robber.transform.position, "Robber", 5, 60);
   }
